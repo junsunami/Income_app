@@ -21,7 +21,7 @@
             </li>
         <% else %>         
             <li class="nav-item">
-                <a class="nav-link" href="#">特徴</a>
+                <%= link_to "特徴", features_path, class:"nav-link" %>
             </li>
             <li class="nav-item  ml-md-auto">
                 <%= link_to "新規登録", new_user_registration_path, class:"nav-link" %>
