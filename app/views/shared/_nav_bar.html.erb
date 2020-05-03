@@ -1,0 +1,22 @@
+<div class="col-md-12">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <%= link_to "Home", root_path, class: "fas fa-home nav-link active" %>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">時給計算ログ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">時給を計測</a>
+        </li>
+        <li class="nav-item dropdown ml-md-auto">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">アカウント情報</a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
+                <div class="dropdown-divider">
+                </div> 
+                    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                </div>
+        </li>
+    </ul>
+</div>
