@@ -1,3 +1,14 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 @import "bootstrap";
+
+.flash {
+  color: $white;
+  text-align: center;
+  &__alert{
+    background-color: red;
+  }
+  &__notice {
+    background-color: $blue;
+  }
+}
