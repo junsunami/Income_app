@@ -1,0 +1,12 @@
+<h1>タスク内容</h1>
+
+<%= @post.description%>
+
+<%= @post.price%>円
+
+<h1>タスクを開始しよう！</h1>
+
+<%= form_tag(start_time_post_path, method: :post, remote: true) do %>
+    <input type="submit" value="Start" class="btn btn-primary">
+<% end %>
+<div id="stop-button"></div>

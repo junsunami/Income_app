@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :posts do
-    collection do
+    member do
       post :start_time
       get :stop
       post :end_time
