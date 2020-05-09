@@ -4,4 +4,7 @@ class StaticController < ApplicationController
 
   def features
   end
+
+  def login_home
+  end
 end

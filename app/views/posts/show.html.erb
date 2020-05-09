@@ -1,12 +1,26 @@
-<h1>タスク内容</h1>
+<div class="container">
+    <div class="col-lg-auto">
+        <h1>今回の業務</h1>
+        <h3>
+            業務内容： <%= @post.description%>
+        </h3>
+        <h3>
+            報酬：<%= @post.price%>円
+        </h3>
 
-<%= @post.description%>
+        <h1 class="hide-title">タスクを開始しよう！</h1>
 
-<%= @post.price%>円
+        <%= form_tag(start_time_post_path, method: :post, remote: true) do %>
+            <input type="submit" value="Start" class="btn btn-primary btn-change">
+        <% end %>
+        <div id="stop-button"></div>
+    </div>
+</div>
 
-<h1>タスクを開始しよう！</h1>
-
-<%= form_tag(start_time_post_path, method: :post, remote: true) do %>
-    <input type="submit" value="Start" class="btn btn-primary">
-<% end %>
-<div id="stop-button"></div>
+<script>
+    $(function(){
+        $('.btn-change').click(function(){
+            $('.hide-title, input').hide();
+        });
+    });
+</script>
