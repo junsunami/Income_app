@@ -2,7 +2,8 @@ class PostsController < ApplicationController
     before_action :set_post, only: [:show, :start_time, :end_time, :result]
 
     def index
-        @posts = Post.page(params[:page]).per(10)
+        @posts = current_user.posts.page(params[:page]).per(10)
+
     end
 
     def new
@@ -41,6 +42,8 @@ class PostsController < ApplicationController
 
     def end_time
         @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        @post.elapsed_time = @post.end_date - @post.start_date
+        @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
         if @post.save
             redirect_to result_post_path , notice: "新しい仕事が記録されました" 
         else
@@ -49,7 +52,7 @@ class PostsController < ApplicationController
     end
 
     def result
-        @result = @post.end_date - @post.start_date
+        @result = Time.at(@post.end_date - @post.start_date).utc.strftime('%-H時%-M分%-S秒')
     end
 
     private

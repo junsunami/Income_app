@@ -68,3 +68,5 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'kaminari', '~> 1.2'
+gem 'by_star', git: "git://github.com/radar/by_star"
+gem 'line-bot-api', '~> 1.14', '>= 1.14.1'
