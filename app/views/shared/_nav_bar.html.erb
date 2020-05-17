@@ -1,31 +1,32 @@
 <div class="col-md-12">
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand " href="/">Navbar</a>
+            <a class="navbar-brand " href="/">Hourly Wage</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
             <ul class="navbar-nav mr-auto">　
+            <% if user_signed_in? %>
                 <li class="nav-item">
                     <%= link_to "ホーム", login_home_path, class: "nav-link text-light" %>
                 </li>
-                 <% if user_signed_in? %>
+            <% else %>
+                <li class="nav-item">
+                    <%= link_to "特徴", features_path, class:"nav-link text-light" %>
+                </li>
+                <% end %>
+            </ul>
+
+             <ul class="navbar-nav">
+             <% if user_signed_in? %>
                     <li class="nav-item">
                         <%= link_to "時給計算ログ", posts_path, class:"nav-link text-light" %>
                     </li>
                     <li class="nav-item">
                         <%= link_to "タスクを登録", new_post_path, class:"nav-link text-light" %>
-                    </li>
-                <% else %>
-                    <li class="nav-item">
-                        <%= link_to "特徴", features_path, class:"nav-link text-light" %>
-                    </li>
-                <% end %>
-            </ul>
-
-             <ul class="navbar-nav">
+                    </li>                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle  text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     アカウント情報
@@ -37,7 +38,7 @@
                         <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                     </div>
                 </li>
-                <% if !user_signed_in? %>
+                <% else %>
                     <li class="nav-item">
                         <%= link_to "新規登録", new_user_registration_path, class:"nav-link text-light" %>
                     </li>

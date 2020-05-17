@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get 'features', to: 'static#features'
   get 'login_home', to: 'static#login_home'
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
