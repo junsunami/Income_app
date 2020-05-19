@@ -70,3 +70,4 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'kaminari', '~> 1.2'
 gem 'line-bot-api', '~> 1.14', '>= 1.14.1'
+gem "administrate"
