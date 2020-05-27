@@ -26,6 +26,7 @@ class UserDashboard < Administrate::BaseDashboard
     confirmed_at: Field::DateTime,
     confirmation_sent_at: Field::DateTime,
     unconfirmed_email: Field::String,
+    type: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -61,6 +62,7 @@ class UserDashboard < Administrate::BaseDashboard
   confirmed_at
   confirmation_sent_at
   unconfirmed_email
+  type
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -82,6 +84,7 @@ class UserDashboard < Administrate::BaseDashboard
   confirmed_at
   confirmation_sent_at
   unconfirmed_email
+  type
   ].freeze
 
   # COLLECTION_FILTERS

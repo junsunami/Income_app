@@ -32,9 +32,7 @@
                     アカウント情報
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
+                        <%= render 'shared/admin_dropdown' if admin? %>
                         <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                     </div>
                 </li>

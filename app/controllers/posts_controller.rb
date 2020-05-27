@@ -1,9 +1,8 @@
 class PostsController < ApplicationController
-    before_action :set_post, only: [:show, :start_time, :end_time, :result]
+    before_action :set_post, only: [:show, :start_time, :end_time, :result, :destroy, :edit]
 
     def index
         @posts = current_user.posts.page(params[:page]).per(10)
-
     end
 
     def new
@@ -55,9 +54,30 @@ class PostsController < ApplicationController
         @result = Time.at(@post.end_date - @post.start_date).utc.strftime('%-H時%-M分%-S秒')
     end
 
+    def destroy
+        @post.delete
+        redirect_to posts_path, notice: 'タスクが正常に削除されました'
+    end
+
+    def edit
+        
+    end
+
+    def update
+        @post = Post.find_by(id: params[:id])
+        if @post.update(post_params)
+            @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+            @post.update(post_params)
+            redirect_to posts_path, notice: 'タスクが正常に更新されました'
+        else
+            render :edit
+        end
+    end
+
+
     private
         def post_params
-            params.require(:post).permit(:description, :price)
+            params.require(:post).permit(:description, :price, :elapsed_time)
         end
 
         def set_post

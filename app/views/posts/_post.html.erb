@@ -19,4 +19,10 @@
         <%= post.description %>
     </td>
     <td>
+         <%= link_to '', edit_post_path(post), id: "edit_#{post.id}", class: "fa fa-edit text-dark" %>
+    </td>
+    <td>
+        <%= link_to '', post_path(post), method: :delete,
+         id: "delete_post_#{post.id}_from_index", class: 'fa fa-trash text-dark', date: {confirm:"本当によろしいですか?"}%>
+    </td>
 </tr>
