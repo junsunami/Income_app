@@ -1,18 +1,18 @@
  <tr>
-    <td>
+    <td class="d-none d-sm-table-cell">
         <%= post.id %>
     </td>
     <td>
         <%= "¥#{post.hourly_wage}" %>
     </td>
     <td>
-        <%= post.updated_at %>
+        <%= post.updated_at.strftime("%Y %m/%d %H:%M") %>
     </td>
     <td>
         <%= "#{post.elapsed_time}秒" %>
         <!-- 経過時間を表示させる -->
     </td>
-    <td>
+    <td class="d-none d-sm-table-cell">
         <%= "¥#{post.price}" %>
     </td>
     <td>

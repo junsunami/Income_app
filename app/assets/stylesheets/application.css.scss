@@ -45,10 +45,6 @@ body {
   
 }
 
-@media (max-width: 480px) { 
-  
-}
-
 /* 時間計測フィールド */
 
 #youso1 {
@@ -103,4 +99,11 @@ body {
   clear: left;
   width: 100px;
   text-align: center;
+}
+
+
+@media (max-width: 544px) {
+  .index-hidden {
+    visibility: hidden;
+  }
 }
