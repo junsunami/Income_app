@@ -9,7 +9,7 @@
         <%= post.updated_at.strftime("%Y %m/%d") %>
     </td>
     <td>
-        <%= "#{post.elapsed_time}秒" %>
+        <%= "#{(post.elapsed_time / 60) }分#{post.elapsed_time % 60}秒" %>
         <!-- 経過時間を表示させる -->
     </td>
     <td class="d-none d-sm-table-cell">
