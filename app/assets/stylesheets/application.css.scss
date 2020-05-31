@@ -46,8 +46,7 @@ body {
 }
 
 /* 時間計測フィールド */
-
-#youso1 {
+#clock2 {
   text-align: center;
   font-weight: bold;
   color: #FFF;
@@ -56,6 +55,7 @@ body {
   padding: 5px;
   width: 320px;
 }
+
 #startbtn1 {
   background-color: #06C;
   font-size: 24px;
@@ -66,29 +66,6 @@ body {
   width: 100px;
   text-align: center;
 }
-
-#stopbtn1 {
-  background-color: #F90;
-  float: left;
-  font-size: 24px;
-  color: #FFF;
-  padding: 5px;
-  text-align: center;
-  width: 100px;
-}
-#resetbtn1 {
-  background-color: #09C;
-  font-size: 24px;
-  color: #FFF;
-  float: left;
-  padding: 5px;
-  text-align: center;
-  width: 100px;
-}
-#startbtn1:hover { cursor:pointer }
-#stopbtn1:hover { cursor:pointer }
-#resetbtn1:hover { cursor:pointer } 
-
 
 .endbtn {
   background-color: #06C;
@@ -101,6 +78,11 @@ body {
   text-align: center;
 }
 
+#startbtn1:hover { cursor:pointer }
+.endbtn:hover { cursor:pointer }
+
+
+/*スマホ対応*/
 
 @media (max-width: 544px) {
   .index-hidden {
