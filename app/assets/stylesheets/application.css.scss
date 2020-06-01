@@ -84,8 +84,8 @@ body {
 
 /*スマホ対応*/
 
-@media (max-width: 544px) {
-  .index-hidden {
-    visibility: hidden;
+@media (max-width: 400px) {
+  .status-name {
+    max-width: 5px;
   }
 }

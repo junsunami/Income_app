@@ -1,38 +1,43 @@
 <div class="container">
     <h1>時給ログ</h1>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th class="d-none d-sm-table-cell">
-                    #
-                </th>
-                <th>
-                    時給
-                </th>
-                <th>
-                    日付
-                </th>
-                <th>
-                    仕事時間
-                </th>
-                <th class="d-none d-sm-table-cell">
-                    仕事単価
-                </th>
-                <th>
-                    内容        
-                </th>
-                <th>
-                    
-                </th>
-                <th>
-                    
-                </th>
-            </tr>
-        </thead>
-        <tbody id="posts">
-        <%= render @posts %>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead  class="">
+                <tr>
+                    <th class="d-none d-sm-table-cell">
+                        #
+                    </th>
+                    <th>
+                        時給
+                    </th>
+                    <th>
+                        日付
+                    </th>
+                    <th>
+                        時間
+                    </th>
+                    <th class="d-none d-sm-table-cell">
+                        単価
+                    </th>
+                    <th class="d-none d-sm-table-cell">
+                        内容    
+                    </th>
+                    <th class="d-none d-sm-table-cell">
+                        ステータス
+                    </th>
+                    <th>
+                        
+                    </th>
+                    <th>
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="posts">
+            <%= render @posts %>
+            </tbody>
+        </table>
+    </div>
     <div id="paginator">
         <%= paginate @posts, them: 'twitter-bootstrap-4', pagination_class: "pagination-sm", nav_class: "d-inline-b", remote: true %>
     </div>

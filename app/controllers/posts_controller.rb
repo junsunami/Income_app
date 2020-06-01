@@ -43,6 +43,7 @@ class PostsController < ApplicationController
         @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
         @post.elapsed_time = @post.end_date - @post.start_date
         @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+        @post.status = 1
         if @post.save
             redirect_to result_post_path , notice: "新しい仕事が記録されました" 
         else
