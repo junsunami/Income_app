@@ -5,6 +5,8 @@
     <td>
         <%if post.status == "途中" %>
             <%= "作業中"%>
+        <% elsif post.status == "開始" %>
+            <%= "作業開始前"%>
         <% else %>
             <%= "¥#{post.hourly_wage}" %>
         <% end %>
@@ -13,8 +15,11 @@
         <%= post.updated_at.strftime("%m/%d") %>
     </td>
     <td>
-        <%= "#{(post.elapsed_time / 60) }m #{(post.elapsed_time % 60) }s" %>
-        <!-- 経過時間を表示させる -->
+        <% if post.elapsed_time.nil?%>
+            <%= "作業開始前" %>
+        <% else %>
+            <%= "#{(post.elapsed_time / 60) }m #{(post.elapsed_time % 60) }s" %>
+        <% end %>
     </td>
     <td class="d-none d-sm-table-cell">
         <%= "¥#{post.price}" %>
