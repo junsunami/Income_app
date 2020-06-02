@@ -1,5 +1,32 @@
 <div class="container">
     <div class="col-lg-auto">
+    <% if @post.status == "途中" %>
+        <h1 class="title">業務の再開</h1>
+        <div class="contents_head">
+            <h3>
+                業務内容： <%= @post.description%>
+            </h3>
+            <h3>
+                現在の経過時間：<%= "#{(@post.elapsed_time / 60) }分 #{(@post.elapsed_time % 60) }秒" %>
+            </h3>
+            <h3>
+                報酬：<%= @post.price%>円
+            </h3>
+
+            <h1 class="c-title">タスクを再開しよう！</h1>
+        </div>
+        <div>
+            <div class="stopwatch">
+                <div id="clock2">00:00:00</div>
+            </div>
+            <div class="btn_field">
+                <%= form_tag(start_time_post_path, method: :post, remote: true) do %>
+                    <input type="submit" value="Start" style="width: 320px;" class="btn btn-primary btn-change" id="startbtn1">
+                <% end %>
+                <div id="stop-button"></div>
+            </div>
+        </div>
+    <% else %>
         <h1 class="title">今回の業務</h1>
         <div class="contents_head">
             <h3>
@@ -22,6 +49,7 @@
                 <div id="stop-button"></div>
             </div>
         </div>
+    <% end %>
     </div>
 </div>
 
