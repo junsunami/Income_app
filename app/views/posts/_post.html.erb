@@ -31,6 +31,10 @@
         <% elsif post.status == "途中" %>
             <%= link_to post.status, post_path(post),
                 id: "#{post.id}", class: 'badge badge-secondary' %>
+        <% elsif post.status == "nil"%>
+            <%= 'nil'%>
+        <% else %>
+            <%= 'その他'%>
         <% end %>
     </td>
     <td class="d-none d-sm-table-cell">
