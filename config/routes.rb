@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post :start_time
       get :stop
       post :end_time
+      post :stop_time
       get :result
 
     end

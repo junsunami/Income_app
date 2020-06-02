@@ -20,7 +20,7 @@ module ApplicationHelper
             when '完了'
                 content_tag(:span, status.titleize, class: 'badge badge-success')
             when '途中'
-                content_tag(:span, status.titleize, class: 'label label-primary')
+                content_tag(:span, status.titleize, class: 'badge badge-secondary')
             end
         end
 end

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-    before_action :set_post, only: [:show, :start_time, :end_time, :result, :destroy, :edit]
+    before_action :set_post, only: [:show, :start_time, :end_time,:stop_time, :result, :destroy, :edit]
 
     def index
         @posts = current_user.posts.page(params[:page]).per(10)
@@ -40,19 +40,45 @@ class PostsController < ApplicationController
     end
 
     def end_time
+        if @post.elapsed_time.nil?
+            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            @post.elapsed_time = @post.end_date - @post.start_date
+            @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+            @post.status = 1
+            if @post.save
+                redirect_to result_post_path , notice: "新しい仕事が記録されました" 
+            else
+                render :new
+            end
+        else
+            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            final_time = @post.end_date - @post.start_date
+            @post.elapsed_time = @post.elapsed_time + final_time
+            @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+            @post.status = 1
+            if @post.save
+                redirect_to result_post_path , notice: "新しい仕事が記録されました" 
+            else
+                render :new
+            end
+        end
+
+    end
+
+    def stop_time
         @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
         @post.elapsed_time = @post.end_date - @post.start_date
-        @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
-        @post.status = 1
+        @post.status = 2
         if @post.save
-            redirect_to result_post_path , notice: "新しい仕事が記録されました" 
+            redirect_to posts_path , notice: "タスクが一時停止されました。
+            再開するには「状態」からステータスをクリックしてください。" 
         else
             render :new
         end
     end
 
     def result
-        @result = Time.at(@post.end_date - @post.start_date).utc.strftime('%-H時%-M分%-S秒')
+        @result = Time.at(@post.elapsed_time).utc.strftime('%-H時%-M分%-S秒')
     end
 
     def destroy

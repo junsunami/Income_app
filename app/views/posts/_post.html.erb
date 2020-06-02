@@ -3,13 +3,17 @@
         <%= post.id %>
     </td>
     <td>
-        <%= "¥#{post.hourly_wage}" %>
+        <%if post.status == "途中" %>
+            <%= "作業中"%>
+        <% else %>
+            <%= "¥#{post.hourly_wage}" %>
+        <% end %>
     </td>
     <td>
         <%= post.updated_at.strftime("%m/%d") %>
     </td>
     <td>
-        <%= "#{(post.elapsed_time / 60) }m" %>
+        <%= "#{(post.elapsed_time / 60) }m #{(post.elapsed_time % 60) }s" %>
         <!-- 経過時間を表示させる -->
     </td>
     <td class="d-none d-sm-table-cell">
@@ -19,10 +23,19 @@
         <%= post.description %>
     </td>
     <td>
-        <%= status_label post.status %>
+        <% if post.status == "開始"%>
+            <%= link_to post.status, post_path(post),
+                id: "#{post.id}", class: 'badge badge-primary' %>
+        <%elsif post.status == "完了"%>
+            <%= status_label post.status  %>
+        <% elsif post.status == "途中" %>
+            <%= link_to post.status, post_path(post),
+                id: "#{post.id}", class: 'badge badge-secondary' %>
+        <% end %>
     </td>
-    <td class="status-name">
-         <%= link_to '', edit_post_path(post), id: "edit_#{post.id}", class: "fa fa-edit text-dark" %>
+    <td class="d-none d-sm-table-cell">
+         <%= link_to '', edit_post_path(post),
+          id: "edit_#{post.id}", class: "fa fa-edit text-dark" %>
     </td>
     <td>
         <%= link_to '', post_path(post), method: :delete,
