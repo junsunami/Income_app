@@ -1,5 +1,7 @@
 {
   "name": "Income_app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap-honoka": "^4.3.1"
+  }
 }
