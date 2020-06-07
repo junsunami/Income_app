@@ -66,14 +66,27 @@ class PostsController < ApplicationController
     end
 
     def stop_time
-        @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
-        @post.elapsed_time = @post.end_date - @post.start_date
-        @post.status = 2
-        if @post.save
-            redirect_to posts_path , notice: "タスクが一時停止されました。
-            再開するには「状態」からステータスをクリックしてください。" 
+        if @post.elapsed_time.nil?
+            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            @post.elapsed_time = @post.end_date - @post.start_date
+            @post.status = 2
+            if @post.save
+                redirect_to posts_path , notice: "タスクが一時停止されました。
+                再開するには「状態」からステータスをクリックしてください。" 
+            else
+                render :new
+            end
         else
-            render :new
+            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            stop_time = @post.end_date - @post.start_date
+            @post.elapsed_time = @post.elapsed_time + stop_time
+            @post.status = 2
+            if @post.save
+                redirect_to posts_path , notice: "タスクが一時停止されました。
+                再開するには「状態」からステータスをクリックしてください。" 
+            else
+                render :new
+            end
         end
     end
 
