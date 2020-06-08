@@ -6,6 +6,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 
 require 'devise'
+require 'support/controller_macros'
+
 require File.expand_path("spec/support/controller_macros.rb")
 
 begin
@@ -24,7 +26,7 @@ RSpec.configure do |config|
   config.after(:each) { DatabaseCleaner.clean }
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, :type => :controller
   config.include ControllerMacros, type: :controller
   config.include FactoryBot::Syntax::Methods
 end

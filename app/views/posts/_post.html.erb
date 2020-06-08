@@ -3,7 +3,7 @@
         <%= post.id %>
     </td>
     <td>
-        <%if post.status == "途中" %>
+        <%if post.status == "再開" %>
             <%= "作業中"%>
         <% elsif post.status == "開始" %>
             <%= "作業開始前"%>
@@ -33,7 +33,7 @@
                 id: "#{post.id}", class: 'badge badge-primary' %>
         <%elsif post.status == "完了"%>
             <%= status_label post.status  %>
-        <% elsif post.status == "途中" %>
+        <% elsif post.status == "再開" %>
             <%= link_to post.status, post_path(post),
                 id: "#{post.id}", class: 'badge badge-secondary' %>
         <% elsif post.status == "nil"%>

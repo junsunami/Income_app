@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     end
 
     def start_time
-        @post.start_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        @post.start_date =  Time.now
         respond_to do |format|
             if @post.save
                     format.html
@@ -41,7 +41,7 @@ class PostsController < ApplicationController
 
     def end_time
         if @post.elapsed_time.nil?
-            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            @post.end_date = 　Time.now
             @post.elapsed_time = @post.end_date - @post.start_date
             @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
             @post.status = 1
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
                 render :new
             end
         else
-            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            @post.end_date = Time.now
             final_time = @post.end_date - @post.start_date
             @post.elapsed_time = @post.elapsed_time + final_time
             @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
@@ -67,7 +67,7 @@ class PostsController < ApplicationController
 
     def stop_time
         if @post.elapsed_time.nil?
-            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            @post.end_date =  Time.now
             @post.elapsed_time = @post.end_date - @post.start_date
             @post.status = 2
             if @post.save
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
                 render :new
             end
         else
-            @post.end_date =  Process.clock_gettime(Process::CLOCK_MONOTONIC)
+            @post.end_date =  Time.now
             stop_time = @post.end_date - @post.start_date
             @post.elapsed_time = @post.elapsed_time + stop_time
             @post.status = 2
