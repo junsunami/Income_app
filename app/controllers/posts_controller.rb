@@ -41,7 +41,7 @@ class PostsController < ApplicationController
 
     def end_time
         if @post.elapsed_time.nil?
-            @post.end_date = 　Time.now
+            @post.end_date = Time.now
             @post.elapsed_time = @post.end_date - @post.start_date
             @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
             @post.status = 1
