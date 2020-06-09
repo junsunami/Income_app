@@ -94,7 +94,7 @@ Rails.application.configure do
   config.assets.initialize_on_precompile=false
   
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: 'https://wlp-income-app.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'http://54.65.226.36/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => 'smtp.gmail.com',
