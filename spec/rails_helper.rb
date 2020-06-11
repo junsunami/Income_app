@@ -24,9 +24,10 @@ RSpec.configure do |config|
   config.before(:each, :js => true) { DatabaseCleaner.strategy = :truncation }
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each) { DatabaseCleaner.clean }
+  config.include Warden::Test::Helpers
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  config.include Devise::Test::ControllerHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, type: :request
   config.include ControllerMacros, type: :controller
   config.include FactoryBot::Syntax::Methods
 end
