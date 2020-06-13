@@ -2,15 +2,17 @@ class PostsController < ApplicationController
     before_action :set_post, only: [:show, :start_time, :end_time,:stop_time, :result, :destroy, :edit]
 
     def index
-        @posts = current_user.posts.page(params[:page]).per(10)
+        @posts = current_user.posts.order(created_at: :desc).page(params[:page]).per(10)
     end
 
     def new
         @post = Post.new
     end
+    
 
     def start_time
         @post.start_date =  Time.now
+        @post.status = 1
         respond_to do |format|
             if @post.save
                     format.html
@@ -44,7 +46,7 @@ class PostsController < ApplicationController
             @post.end_date = Time.now
             @post.elapsed_time = @post.end_date - @post.start_date
             @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
-            @post.status = 1
+            @post.status = 2
             if @post.save
                 redirect_to result_post_path , notice: "新しい仕事が記録されました" 
             else
@@ -55,24 +57,23 @@ class PostsController < ApplicationController
             final_time = @post.end_date - @post.start_date
             @post.elapsed_time = @post.elapsed_time + final_time
             @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
-            @post.status = 1
+            @post.status = 2
             if @post.save
                 redirect_to result_post_path , notice: "新しい仕事が記録されました" 
             else
                 render :new
             end
         end
-
     end
 
     def stop_time
         if @post.elapsed_time.nil?
             @post.end_date =  Time.now
             @post.elapsed_time = @post.end_date - @post.start_date
-            @post.status = 2
+            @post.status = 3
             if @post.save
                 redirect_to posts_path , notice: "タスクが一時停止されました。
-                再開するには「状態」からステータスをクリックしてください。" 
+                再開するには「状態」から「再開」ボタンをクリックしてください。" 
             else
                 render :new
             end
@@ -80,10 +81,10 @@ class PostsController < ApplicationController
             @post.end_date =  Time.now
             stop_time = @post.end_date - @post.start_date
             @post.elapsed_time = @post.elapsed_time + stop_time
-            @post.status = 2
+            @post.status = 3
             if @post.save
                 redirect_to posts_path , notice: "タスクが一時停止されました。
-                再開するには「状態」からステータスをクリックしてください。" 
+                再開するには「状態」から「再開」ボタンをクリックしてください。" 
             else
                 render :new
             end
@@ -106,8 +107,9 @@ class PostsController < ApplicationController
     def update
         @post = Post.find_by(id: params[:id])
         if @post.update(post_params)
+            @post.elapsed_time = @post.elapsed_time * 60
             @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
-            @post.update(post_params)
+            @post.update_attributes(hourly_wage: @post.hourly_wage, elapsed_time: @post.elapsed_time)
             redirect_to posts_path, notice: 'タスクが正常に更新されました'
         else
             render :edit
