@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-lg-auto">
-    <% if @post.status == "途中" %>
+    <% if @post.status == "再開" %>
         <h1 class="title">業務の再開</h1>
         <div class="contents_head">
             <h3>
@@ -10,7 +10,7 @@
                 現在の経過時間：<%= "#{(@post.elapsed_time / 60) }分 #{(@post.elapsed_time % 60) }秒" %>
             </h3>
             <h3>
-                報酬：<%= @post.price%>円
+                報酬：<%= @post.price.to_s(:delimited)%>円
             </h3>
 
             <h1 class="c-title">タスクを再開しよう！</h1>
@@ -33,20 +33,31 @@
                 業務内容： <%= @post.description%>
             </h3>
             <h3>
-                報酬：<%= @post.price%>円
+                報酬：<%= @post.price.to_s(:delimited)%>円
             </h3>
-
-            <h1 class="c-title">タスクを開始しよう！</h1>
+            <% if !@post.start_date.nil? %>
+                <h1>記録計測中！<br>タスクが完了したら「終了」をクリック！</h1>
+            <% else %>
+                <h1 class="c-title">タスクを開始しよう！</h1>
+            <% end %>
         </div>
         <div>
-            <div class="stopwatch">
-                <div id="clock2">00:00:00</div>
-            </div>
+            <% if !@post.start_date.nil? %>
+                
+            <% else %>
+                 <div class="stopwatch">
+                    <div id="clock2">00:00:00</div>
+                </div>
+            <% end %>
             <div class="btn_field">
-                <%= form_tag(start_time_post_path, method: :post, remote: true) do %>
-                    <input type="submit" value="Start" style="width: 320px;" class="btn btn-primary btn-change" id="startbtn1">
+                <% if !@post.start_date.nil? %>
+                    <%= render partial: 'stop' %>
+                <% else %>
+                    <%= form_tag(start_time_post_path, method: :post, remote: true) do %>
+                        <input type="submit" value="Start" style="width: 320px;" class="btn btn-primary btn-change" id="startbtn1">
+                    <% end %>
+                    <div id="stop-button"></div>
                 <% end %>
-                <div id="stop-button"></div>
             </div>
         </div>
     <% end %>
@@ -105,8 +116,18 @@
         $('.btn-change').on('click', function(){
             $('input').hide();
             $(".c-title").text("仕事が終わったら終了を押してください");
-            $('title').attr('id', 'clock1')
+            $('title').attr('id', 'clock1');
+            pagelinkHref = $(this).attr('href');
+            window.history.pushState(null, null, pagelinkHref);
+            changeContents(location.pathname);
         });
+
+    // ブラウザの戻る・進むボタン
+        window.addEventListener('popstate', function (e) {
+            changeContents(location.pathname);
+        });
+    
+        //コンテンツの切り替え
        
     });
     

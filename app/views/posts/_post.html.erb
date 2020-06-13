@@ -3,12 +3,14 @@
         <%= post.id %>
     </td>
     <td>
-        <%if post.status == "再開" %>
-            <%= "作業中"%>
+        <%if post.status == "中断" %>
+            <%= "作業計測中"%>
         <% elsif post.status == "開始" %>
             <%= "作業開始前"%>
+        <% elsif post.status == "完了" %>
+            <%= "¥#{post.hourly_wage.to_s(:delimited)}" %>
         <% else %>
-            <%= "¥#{post.hourly_wage}" %>
+            <%= "停止中"%>
         <% end %>
     </td>
     <td>
@@ -18,11 +20,11 @@
         <% if post.elapsed_time.nil?%>
             <%= "作業開始前" %>
         <% else %>
-            <%= "#{(post.elapsed_time / 60) }m #{(post.elapsed_time % 60) }s" %>
+            <%= "#{post.elapsed_time / 60}分" %>
         <% end %>
     </td>
     <td class="d-none d-sm-table-cell">
-        <%= "¥#{post.price}" %>
+        <%= "¥#{post.price.to_s(:delimited)}" %>
     </td>
     <td class="d-none d-sm-table-cell">
         <%= post.description %>
@@ -30,14 +32,15 @@
     <td>
         <% if post.status == "開始"%>
             <%= link_to post.status, post_path(post),
-                id: "#{post.id}", class: 'badge badge-primary' %>
+                id: "#{post.id}", class: 'btn btn-primary btn-sm py-0' %>
         <%elsif post.status == "完了"%>
             <%= status_label post.status  %>
         <% elsif post.status == "再開" %>
             <%= link_to post.status, post_path(post),
-                id: "#{post.id}", class: 'badge badge-secondary' %>
-        <% elsif post.status == "nil"%>
-            <%= 'nil'%>
+                id: "#{post.id}", class: 'btn btn-secondary btn-sm py-0' %>
+        <% elsif post.status == "中断"%>
+            <%= link_to "再開", post_path(post),
+                id: "#{post.id}", class: 'btn btn-warning btn-sm py-0' %>
         <% else %>
             <%= 'その他'%>
         <% end %>
@@ -48,6 +51,6 @@
     </td>
     <td>
         <%= link_to '', post_path(post), method: :delete,
-         id: "delete_post_#{post.id}_from_index", class: 'fa fa-trash text-dark', date: {confirm:"本当によろしいですか?"}%>
+         id: "delete_post_#{post.id}_from_index", class: 'fa fa-trash text-dark', data: {confirm: "本当によろしいですか?"}%>
     </td>
 </tr>

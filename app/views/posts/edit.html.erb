@@ -14,8 +14,8 @@
             </div>
 
             <div class="form-group">
-                <%= f.label :"経過時間", class: "col-sm-2 control-label" %>
-                <%= f.number_field :elapsed_time, class: "form-control"  %>
+                <%= f.label :"経過時間(分)", class: "col-sm-2 control-label" %>
+                <%= f.number_field :elapsed_time, class: "form-control", value: ""  %>
             </div>
 
             <%= f.submit "Save", class: "btn btn-primary btn-block" %>
