@@ -59,3 +59,4 @@ gem 'line-bot-api', '~> 1.14', '>= 1.14.1'
 gem "administrate"
 gem "font-awesome-rails"
 gem "gon"
+gem 'rails-i18n'
