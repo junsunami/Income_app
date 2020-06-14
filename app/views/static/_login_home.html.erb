@@ -1,7 +1,7 @@
 <div class="container">
     <div class="col-lg-auto">
     　　 <% if !@all_elapsed_time[current_user.id].nil?%>
-            <h1>累計稼働時間：<%= @all_elapsed_time[current_user.id].to_s(:delimited) %> 秒</h1>
+            <h1>累計稼働時間：<%= "#{(@all_elapsed_time[current_user.id] / 60)/ 60}時間:#{(@all_elapsed_time[current_user.id] / 60) % 60}分:#{@all_elapsed_time[current_user.id] % 60}秒" %> </h1>
             <h1>累計平均時給：<%= @all_hourly_wage[current_user.id].ceil.to_s(:delimited) %>円</h1>
             <h1>累計収入：<%= @all_price[current_user.id].to_s(:delimited) %>円</h1>
             <h1>さあ、今日も自分に厳しく時給を管理しよう。</h1>
