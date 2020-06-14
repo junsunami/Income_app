@@ -58,3 +58,4 @@ gem 'kaminari', '~> 1.2'
 gem 'line-bot-api', '~> 1.14', '>= 1.14.1'
 gem "administrate"
 gem "font-awesome-rails"
+gem "gon"
