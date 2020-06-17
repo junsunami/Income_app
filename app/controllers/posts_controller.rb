@@ -45,7 +45,7 @@ class PostsController < ApplicationController
         if @post.elapsed_time.nil?
             @post.end_date = Time.now
             @post.elapsed_time = @post.end_date - @post.start_date
-            @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+            @post.hourly_wage = ((3600.to_f/@post.elapsed_time.to_f)* @post.price).round
             @post.status = 2
             if @post.save
                 redirect_to result_post_path , notice: "新しい仕事が記録されました" 
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
             @post.end_date = Time.now
             final_time = @post.end_date - @post.start_date
             @post.elapsed_time = @post.elapsed_time + final_time
-            @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+            @post.hourly_wage = ((3600.to_f/@post.elapsed_time.to_f)* @post.price).round
             @post.status = 2
             if @post.save
                 redirect_to result_post_path , notice: "新しい仕事が記録されました" 
@@ -108,7 +108,7 @@ class PostsController < ApplicationController
         @post = Post.find_by(id: params[:id])
         if @post.update(post_params)
             @post.elapsed_time = @post.elapsed_time * 60
-            @post.hourly_wage = (3600/@post.elapsed_time)* @post.price
+            @post.hourly_wage = ((3600.to_f/@post.elapsed_time.to_f)* @post.price).round
             @post.update_attributes(hourly_wage: @post.hourly_wage, elapsed_time: @post.elapsed_time)
             redirect_to posts_path, notice: 'タスクが正常に更新されました'
         else
