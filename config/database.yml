@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: Income_app_production
-  username: Income_app
+  username: root
   password: <%= ENV['INCOME_APP_DATABASE_PASSWORD'] %>
