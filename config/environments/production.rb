@@ -94,7 +94,7 @@ Rails.application.configure do
   config.assets.initialize_on_precompile=false
   
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: 'http://incomeapp.ml/' }
+  config.action_mailer.default_url_options = { :host => 'http://incomeapp.ml/' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => 'smtp.gmail.com',
@@ -103,6 +103,7 @@ Rails.application.configure do
     :user_name => Rails.application.credentials.gmail[:MAIL_USER_NAME],
     :password =>  Rails.application.credentials.gmail[:MAIL_PASSWORD],
     :authentication => :plain,
+    :openssl_verify_mode: 'none', 
     :enable_starttls_auto => true,
   }
 end

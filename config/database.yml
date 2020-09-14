@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: password
-  host: db
+  host: db #EC2の環境では一時的にlocalhostに変更しているため、EC2巻今日でもDockerを利用したマイグレーションができるよう後々変更する
 
 development:
   <<: *default
