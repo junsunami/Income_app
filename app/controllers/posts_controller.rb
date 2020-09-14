@@ -107,10 +107,15 @@ class PostsController < ApplicationController
     def update
         @post = Post.find_by(id: params[:id])
         if @post.update(post_params)
-            @post.elapsed_time = @post.elapsed_time * 60
-            @post.hourly_wage = ((3600.to_f/@post.elapsed_time.to_f)* @post.price).round
-            @post.update_attributes(hourly_wage: @post.hourly_wage, elapsed_time: @post.elapsed_time)
-            redirect_to posts_path, notice: 'タスクが正常に更新されました'
+            if @post.elapsed_time == nil
+                flash.now[:alert] = '全ての項目を入力してください。'
+                render :edit
+            else
+                @post.elapsed_time = @post.elapsed_time * 60
+                @post.hourly_wage = ((3600.to_f/@post.elapsed_time.to_f)* @post.price).round
+                @post.update_attributes(hourly_wage: @post.hourly_wage, elapsed_time: @post.elapsed_time)
+                redirect_to posts_path, notice: 'タスクが正常に更新されました'
+            end
         else
             render :edit
         end
